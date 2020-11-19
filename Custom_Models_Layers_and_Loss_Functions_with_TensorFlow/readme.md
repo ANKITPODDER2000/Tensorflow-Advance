@@ -49,7 +49,11 @@ Good luck as you get started, and I hope you enjoy the course!
   <p align="center">
   <img src="https://user-images.githubusercontent.com/50513363/99687391-9eaee100-2aaa-11eb-96b6-f1ac555a7d5d.png" margin="0 auto" display="block"/>
   </p>
+  
 ### 2. Week2 -> Custom Loss Function
+
 ### 3. Week3 -> Custom Layers
+
 ### 4. Week4 -> Custom Models
+
 ### 5. Week5 -> Bonus
