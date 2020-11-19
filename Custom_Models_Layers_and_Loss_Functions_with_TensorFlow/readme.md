@@ -20,23 +20,23 @@ Good luck as you get started, and I hope you enjoy the course!
 
 ### 1. Week1 -> Funcitional API 
   #### * Create a model Using functional API( Notebook ->  [1st_notebook.ipynb](https://github.com/ANKITPODDER2000/Tensorflow-Advance/blob/main/Custom_Models_Layers_and_Loss_Functions_with_TensorFlow/Week1/1st_notebook.ipynb) )
-    ```python
-      def create_functionalapi_model():
-        input_layer = Input(shape=(28,28))
+  ```python
+    def create_functionalapi_model():
+      input_layer = Input(shape=(28,28))
 
-        #1st way -> i. flatten_layer = Flatten() ii. flatten_layer(input_layer)
-        #2nd way -> i. flatten_layer = Flatten()(input_layer)
-        flatten_layer = Flatten()(input_layer)
+      #1st way -> i. flatten_layer = Flatten() ii. flatten_layer(input_layer)
+      #2nd way -> i. flatten_layer = Flatten()(input_layer)
+      flatten_layer = Flatten()(input_layer)
 
-        #1st way -> i. first_layer = Dense(128 , activation=tf.nn.relu) ii. first_layer(flatten_layer)
-        #2nd way -> i. first_layer = Dense(128 , activation=tf.nn.relu)(flatten_layer)
-        first_layer = Dense(128 , activation=tf.nn.relu)(flatten_layer)
+      #1st way -> i. first_layer = Dense(128 , activation=tf.nn.relu) ii. first_layer(flatten_layer)
+      #2nd way -> i. first_layer = Dense(128 , activation=tf.nn.relu)(flatten_layer)
+      first_layer = Dense(128 , activation=tf.nn.relu)(flatten_layer)
 
-        output_layer = Dense(10 , activation=tf.nn.softmax)(first_layer)
-        model = Model(inputs = input_layer , outputs = output_layer)
-        model.compile(optimizer = "rmsprop" , loss = tf.keras.losses.categorical_crossentropy , metrics = ['acc'])
-        return model
-    ```
+      output_layer = Dense(10 , activation=tf.nn.softmax)(first_layer)
+      model = Model(inputs = input_layer , outputs = output_layer)
+      model.compile(optimizer = "rmsprop" , loss = tf.keras.losses.categorical_crossentropy , metrics = ['acc'])
+      return model
+  ```
     
   #### * Create Multi Output Architecture
   ---
