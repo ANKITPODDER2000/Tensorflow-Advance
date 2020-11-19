@@ -18,26 +18,42 @@ Good luck as you get started, and I hope you enjoy the course!
 
 ## Content
 
-* Week1 -> Funcitional API 
-  1. Create a model Using functional API( Notebook ->  [1st_notebook.ipynb](https://github.com/ANKITPODDER2000/Tensorflow-Advance/blob/main/Custom_Models_Layers_and_Loss_Functions_with_TensorFlow/Week1/1st_notebook.ipynb) )
-    ```python
-      def create_functionalapi_model():
-        input_layer = Input(shape=(28,28))
+### 1. Week1 -> Funcitional API 
+  #### * Create a model Using functional API( Notebook ->  [1st_notebook.ipynb](https://github.com/ANKITPODDER2000/Tensorflow-Advance/blob/main/Custom_Models_Layers_and_Loss_Functions_with_TensorFlow/Week1/1st_notebook.ipynb) )
+  ```python
+    def create_functionalapi_model():
+      input_layer = Input(shape=(28,28))
 
-        #1st way -> i. flatten_layer = Flatten() ii. flatten_layer(input_layer)
-        #2nd way -> i. flatten_layer = Flatten()(input_layer)
-        flatten_layer = Flatten()(input_layer)
+      #1st way -> i. flatten_layer = Flatten() ii. flatten_layer(input_layer)
+      #2nd way -> i. flatten_layer = Flatten()(input_layer)
+      flatten_layer = Flatten()(input_layer)
 
-        #1st way -> i. first_layer = Dense(128 , activation=tf.nn.relu) ii. first_layer(flatten_layer)
-        #2nd way -> i. first_layer = Dense(128 , activation=tf.nn.relu)(flatten_layer)
-        first_layer = Dense(128 , activation=tf.nn.relu)(flatten_layer)
+      #1st way -> i. first_layer = Dense(128 , activation=tf.nn.relu) ii. first_layer(flatten_layer)
+      #2nd way -> i. first_layer = Dense(128 , activation=tf.nn.relu)(flatten_layer)
+      first_layer = Dense(128 , activation=tf.nn.relu)(flatten_layer)
 
-        output_layer = Dense(10 , activation=tf.nn.softmax)(first_layer)
-        model = Model(inputs = input_layer , outputs = output_layer)
-        model.compile(optimizer = "rmsprop" , loss = tf.keras.losses.categorical_crossentropy , metrics = ['acc'])
-        return model
-    ```
-* Week2 -> Custom Loss Function
-* Week3 -> Custom Layers
-* Week4 -> Custom Models
-* Week5 -> Bonus
+      output_layer = Dense(10 , activation=tf.nn.softmax)(first_layer)
+      model = Model(inputs = input_layer , outputs = output_layer)
+      model.compile(optimizer = "rmsprop" , loss = tf.keras.losses.categorical_crossentropy , metrics = ['acc'])
+      return model
+  ```
+    
+  #### * Create Multi Output Architecture
+  ---
+  <p align="center">
+  <img src="https://user-images.githubusercontent.com/50513363/99687028-33650f00-2aaa-11eb-98ef-0b25b0421412.png" margin="0 auto" display="block"/>
+  </p>
+
+  #### * Create Multi Input Architecture / Siamese network
+  ---
+  <p align="center">
+  <img src="https://user-images.githubusercontent.com/50513363/99687391-9eaee100-2aaa-11eb-96b6-f1ac555a7d5d.png" margin="0 auto" display="block"/>
+  </p>
+  
+### 2. Week2 -> Custom Loss Function
+
+### 3. Week3 -> Custom Layers
+
+### 4. Week4 -> Custom Models
+
+### 5. Week5 -> Bonus
