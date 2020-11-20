@@ -96,6 +96,63 @@ class Huber(Loss):
   
 
 ### 3. Week3 -> Custom Layers
+  * Introduction to Lambda Layers
+  * Custom Functions from Lambda Layers
+  ```python
+    model_lambda = tf.keras.models.Sequential([
+      tf.keras.layers.Flatten(input_shape=(28,28)),
+      tf.keras.layers.Dense(128),
+      tf.keras.layers.Lambda(lambda x : tf.abs(x)),
+      tf.keras.layers.Dense(10 , activation='softmax')
+  ])
+
+  model_lambda.compile(optimizer = RMSprop() , loss = categorical_crossentropy , metrics = ['acc'])
+  model_lambda.summary()
+  model_lambda.fit(train_data , train_label , epochs=5)
+  model_lambda.evaluate(test_data , test_label)
+  ```
+  * Architecture of a Custom Layer
+  * Coding your own custom Dense Layer
+  ```python
+  #CUSTOM DENSE LAYER CLASS
+  class SimpleDense(Layer):
+    def __init__(self , units = 32):
+        super(SimpleDense , self).__init__()
+        self.units = units
+
+    def build(self , input_shape):
+        w_init = tf.random_normal_initializer()
+        self.w = tf.Variable(name = "kernal" , 
+                             initial_value = w_init(shape = (input_shape[-1] , self.units) , dtype="float32") , 
+                             trainable=True )
+
+        b_init = tf.zeros_initializer()
+        self.b = tf.Variable(name = "bias",
+                             initial_value = b_init(shape = (self.units) , dtype = "float32") ,
+                             trainable=True)
+    def call(self , inputs):
+        return tf.matmul(inputs , self.w) + self.b
+  ```
+  * Custom Layer with activation 
+  ```python
+
+  class MyDenseLayerwithActivation(Layer):
+      def __init__(self , units = 32 ,activation = None):
+          super(MyDenseLayerwithActivation , self).__init__()
+          self.units = units
+          self.activation = activation
+
+      def build(self , input_shape):
+          w_init = tf.random_normal_initializer()
+          b_init = tf.zeros_initializer()
+
+          self.w = tf.Variable(initial_value=w_init(shape=(input_shape[-1] , self.units) , dtype="float32") , 
+                                trainable=True , name="kernal")
+          self.b = tf.Variable(initial_value=b_init(shape=(self.units , ) , dtype="float32") , 
+                                trainable=True , name="bias")
+      def call(self , inputs):
+          return self.activation( tf.matmul(inputs , self.w) + self.b )
+  ```
 
 ### 4. Week4 -> Custom Models
 
