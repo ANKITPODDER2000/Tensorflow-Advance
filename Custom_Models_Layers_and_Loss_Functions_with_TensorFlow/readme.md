@@ -51,6 +51,49 @@ Good luck as you get started, and I hope you enjoy the course!
   </p>
   
 ### 2. Week2 -> Custom Loss Function
+  * Huber Loss Function 
+  
+  ```python
+  def huber_loss(y_true , y_pred):
+    thresold = 1
+    error = y_true - y_pred
+    return_type = tf.abs(error) <= thresold
+    r1 = 0.5 * tf.square(error)
+    r2 = thresold * (tf.abs(error) - (0.5*thresold))
+    return tf.where(return_type , r1 , r2)
+  ```
+  
+  * Huber Loss With function *wrapper*
+  
+  ```python
+  
+def huber_loss_wrapper(thresold):
+    def huber_loss(y_true , y_pred):
+        error = y_true - y_pred
+        return_type = tf.abs(error) <= thresold
+        r1 = 0.5 * tf.square(error)
+        r2 = thresold * (tf.abs(error) - (0.5*thresold))
+        return tf.where(return_type , r1 , r2)
+    return huber_loss
+  ```
+  
+  * Huber Loss class
+  
+  ```python
+  
+class Huber(Loss):
+    thresold = 1
+    def __init__(self , thresold):
+        super().__init__()
+        self.thresold = thresold
+    def call(self , y_true , y_pred):
+        error = y_true - y_pred
+        return_type = tf.abs(error) <= self.thresold
+        r1 = 0.5 * tf.square(error)
+        r2 = self.thresold * (tf.abs(error) - (0.5*self.thresold))
+        return tf.where(return_type , r1 , r2)
+  ```
+  
 
 ### 3. Week3 -> Custom Layers
 
