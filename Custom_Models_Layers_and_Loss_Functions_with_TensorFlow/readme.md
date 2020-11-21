@@ -239,6 +239,7 @@ class Huber(Loss):
           imageio.mimsave('/content/animation.gif' , self.images , fps = 1)
   ```
   ---
+  * ### Model Prediction : 
   <p align="center"><img src="https://user-images.githubusercontent.com/50513363/99882760-e8cdc900-2c48-11eb-87b5-76011d66683a.gif"/></p>
   
 ## Thank You!
