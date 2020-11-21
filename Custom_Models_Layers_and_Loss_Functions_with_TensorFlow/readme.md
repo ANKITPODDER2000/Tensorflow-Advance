@@ -210,3 +210,35 @@ class Huber(Loss):
   ```
 
 ### 5. Week5 -> Bonus
+  * Custom Callbacks code 
+  ```python
+  class MyCallBack(tf.keras.callbacks.Callback):
+      def __init__(self , inputs , des_outputs , number_images = 10 , freq = 2):
+          self.inputs         = inputs
+          self.des_outputs    = des_outputs
+          self.number_images  = number_images
+          self.freq           = freq
+          self.images         = []
+
+      def on_epoch_end(self , epoch , logs ={}):
+          choice = np.random.choice(len(self.inputs) , self.number_images)
+          input  = self.inputs[choice]
+          output = np.argmax(self.des_outputs[choice]  , axis = 1)
+          pred   = np.argmax(self.model.predict(input) , axis = 1)
+
+          display_image(input , pred , output)
+
+          name = "./images/fig%d.png"%epoch
+          plt.savefig(name)
+          image = Image.open(name)
+          self.images.append(np.array(image))
+
+          if epoch % self.freq == 0:
+              plt.show()
+      def on_train_end(self , logs = {}):
+          imageio.mimsave('/content/animation.gif' , self.images , fps = 1)
+  ```
+  ---
+  <p align="center"><img src="https://user-images.githubusercontent.com/50513363/99882760-e8cdc900-2c48-11eb-87b5-76011d66683a.gif"/></p>
+  
+## Thank You!
