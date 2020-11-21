@@ -155,5 +155,58 @@ class Huber(Loss):
   ```
 
 ### 4. Week4 -> Custom Models
+  * Explain some benefits to defining a custom model class instead of using the Functional or Sequential APIs
+  * Define a model by creating a Python class that inherits from TensorFlow's Model class
+  * Describe functions that can be inherited from the TensorFlow Model class
+  * Build a residual network by defining a custom model class
+  #### important lines of code ->
+  
+  ---
+  ---
+  ```python
+  class IdentityBlock(Model):
+    def __init__(self , filters , kernal_size):
+        super(IdentityBlock , self ).__init__(name  ='')
+        self.conv = Conv2D(filters , kernal_size , padding='same')
+        self.norm = BatchNormalization()
+        self.act  = Activation('relu')
+        self.add  = Add()
+    def call(self , input):
+        x = self.conv(input)
+        x = self.norm(x)
+        x = self.act(x)
+
+        x = self.conv(x)
+        x = self.norm(x)
+
+        x = self.add([x , input])
+        x = self.act(x)
+        return x
+        
+  class Resnet(Model):
+    def __init__(self , num_classes , activation = 'softmax'):
+        super(Resnet , self).__init__(name="")
+        self.conv7 = Conv2D(64 , 7 , padding='same')
+        self.norm  = BatchNormalization()
+        self.pool  = MaxPool2D((3,3))
+        self.idbl1 = IdentityBlock(64 , 3)
+        self.idbl2 = IdentityBlock(64 , 3)
+        self.gpool = GlobalAveragePooling2D()
+        self.claasifier = Dense(num_classes , activation = tf.keras.activations.get(activation))
+
+    def call(self , input):
+        x = self.conv7(input)
+        x = self.norm(x)
+        x = self.pool(x)
+        x = self.idbl1(x)
+        x = self.idbl2(x)
+        x = self.gpool(x)
+        x = self.claasifier(x)
+
+        return x
+
+  resnet_model = Resnet(10)
+  resnet_model.compile(optimizer='adam' , loss = tf.keras.losses.sparse_categorical_crossentropy , metrics=['acc'])
+  ```
 
 ### 5. Week5 -> Bonus
