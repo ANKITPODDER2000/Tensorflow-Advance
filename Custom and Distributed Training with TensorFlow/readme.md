@@ -55,6 +55,11 @@ Good luck as you get started, and I hope you enjoy the course!
   ```
  
 ### 2. Week2 -> Custom Trainig
+ * Custom Training Loops
+ <p align="center"><img src="https://user-images.githubusercontent.com/50513363/99905776-ef1b7e00-2cf8-11eb-99a9-8df60b5cd847.png" /></p>
+ 
+ * Custom Training with TensorFlow Datasets
+ <p align="center"><img src="https://user-images.githubusercontent.com/50513363/99905784-fe9ac700-2cf8-11eb-9cf5-412720f8818d.png" /></p>
 
 ### 3. Week3 -> Graph Model
 
