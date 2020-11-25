@@ -22,4 +22,9 @@
   <p align="center">
     <img src="./Regression/animation_deg_6.gif"/>
   </p>
+* Cat & Dog Classification
+  * Prediction :
+  <p align="center">
+    <img src="./Cat_Dog/animation.gif"/>
+  </p>
   
