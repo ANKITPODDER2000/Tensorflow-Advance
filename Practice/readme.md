@@ -23,8 +23,14 @@
     <img src="./Regression/animation_deg_6.gif"/>
   </p>
 * Cat & Dog Classification
-  * Prediction :
+
+  * *Prediction :*
   <p align="center">
-    <img src="./Cat_Dog/animation.gif"/>
+    <img src="./Cat_Dog/animation_mod.gif"/>
+  </p>
+  
+  * *Model Accurecy and loss on training and testing data*
+  <p align="center">
+    <img src="./Cat_Dog/animation_loss_mod.gif"/>
   </p>
   
