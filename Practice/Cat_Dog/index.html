@@ -201,8 +201,8 @@
                                         :
                                         document.querySelector("body > section > p.pred").innerHTML = "Prediction : DOG" 
                                     );
-            }catch{
-                document.querySelector("body > section > p.pred").innerHTML = "Give a Proper Image !!" 
+            }catch(err){
+                document.querySelector("body > section > p.pred").innerHTML = err.message 
             }
         }
 
