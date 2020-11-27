@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAT & DOG</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body , html{
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        section{
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            padding: 40px 5%;
+        }
+        section p.header{
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        img{
+            position: relative;
+            width: 40%;
+            display: none;
+            margin: 30px 0 20px;
+        }
+        #fileUpload{
+            display: inline;
+            width: 200px;
+        }
+        .getImg{
+            position: relative;
+            width: 100%;
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .getImg input{
+            background: none;
+            border: none;
+            padding: 5px 10px;
+            background: #0001;
+            border-bottom: 2px solid #0004;
+            outline: none;
+            letter-spacing: 1px;
+            font-size: 16px;
+            margin-right: 30px;
+            height: 40px;
+        }
+        .getImg button{
+            position: relative;
+            height: 40px;
+            background: none;
+            border: none;
+            outline: none;
+            padding: 0 20px;
+            border: 2px solid #000;
+            transition: 0.5s;
+        }
+        .getImg button:hover{
+            background: #000;
+            color: #fff;
+        }
+        .predict{
+            position: relative;
+            padding: 10px 20px;
+            font-size: 17px;
+            letter-spacing: 2px;
+            word-spacing: 2px;
+            background: none;
+            border: none;
+            outline: none;
+            border: 2px solid rgb(1, 156, 207);
+            color:  rgb(1, 156, 207);
+            margin-top: 15px;
+            cursor: pointer;
+            transition: 0.5s;
+            display: none;
+        }
+        .predict:hover{
+            background-color: rgb(1, 156, 207);
+            color: #fff;
+        }
+        .pred{
+            margin-top: 20px;
+            font-size: 26px;
+            display: none;
+        }
+        @media screen and (max-width : 850px) {
+            img{
+                width: 90%;
+            }
+        }
+        @media screen and (max-width : 430px) {
+            img{
+                width: 100%;
+            }
+            section p.header{
+                font-size: 24px;
+            }
+        }
+        @media screen and (max-width : 430px) {
+            .getImg {
+                flex-direction: column;
+                height: 100px;
+            }
+            .getImg input{
+                position: relative;
+                width: 100%;
+                margin-bottom: 15px;
+                font-size: 15px;
+            }
+            .getImg button{
+                position: relative;
+                width: 100%;
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+            .predict{
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <p class="header">DOG & CAT &nbsp Prediction</p>
+        <input type="file" name="imagr-file" id="fileUpload">
+        <span> , &nbsp &nbsp or</span>
+        <div class="getImg">
+            <input type='text' placeholder="Image Link" id="imglink">
+            <button onclick="clickImg()">Collect Image</button>
+        </div>
+        <img src="#" id="showImg" crossorigin="anonymous">
+        <button onclick="predict()" class="predict">Predict !!!</button>
+        <p class="pred"></p>
+    </section>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"> </script>
+    <script>
+        class L2 {
+            static className = 'L2';
+            constructor(config) {
+                return tf.regularizers.l1l2(config)
+            }
+        }
+        tf.serialization.registerClass(L2);
+
+        async function loadModel() {
+            model = undefined;
+            model = await tf.loadLayersModel("./model/model.json");
+            console.log("model loaded")
+        }
+        loadModel();
+
+        const input = document.querySelector('#fileUpload');
+        const img   = document.querySelector("#showImg");
+        
+        input.addEventListener('change' , function(){
+            const file = this.files[0];
+            console.log(file)
+            if(file){
+                const render = new FileReader();
+                render.addEventListener('load' , function(){
+                    document.querySelector("#imglink").value = "";
+                    img.setAttribute("src" , this.result);
+                });
+                render.readAsDataURL(file);
+                document.querySelector("#showImg").style.display = 'block';
+                document.querySelector("body > section > button").style.display = 'block';
+                document.querySelector("body > section > p.pred").style.display = 'none';
+                document.querySelector("body > section > p.pred").innerHTML = '';
+            }
+
+        })
+
+        function predict() {
+            try{
+                document.querySelector("body > section > p.pred").style.display = 'block';
+                document.querySelector("body > section > p.pred").innerHTML = 'Prediction : Predicting...';
+                var raw = tf.browser.fromPixels(img, 3);
+                var resized = tf.image.resizeBilinear(raw, [150, 150]).div(255.0);
+                var tensor = resized.expandDims(0);
+                var prediction = model.predict(tensor);
+                prediction.array().then(array => array[0][0] >= 0.5 
+                                        ?
+                                        document.querySelector("body > section > p.pred").innerHTML = "Prediction : CAT" 
+                                        :
+                                        document.querySelector("body > section > p.pred").innerHTML = "Prediction : DOG" 
+                                    );
+            }catch{
+                document.querySelector("body > section > p.pred").innerHTML = "Give a Proper Image !!" 
+            }
+        }
+
+        function clickImg(){
+            try{
+                let url = document.querySelector("#imglink").value;
+                if (url.trim() === '')
+                    return false;
+                img.setAttribute("src", url);
+                document.querySelector("#showImg").style.display = 'block';
+                document.querySelector("body > section > button").style.display = 'block';
+                document.querySelector("body > section > p.pred").style.display = 'none';
+                document.querySelector("body > section > p.pred").innerHTML = '';
+            }catch{
+                console.log("HEY !!")
+            }
+        }
+    </script>
+</body>
+</html>
