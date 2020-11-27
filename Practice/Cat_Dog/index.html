@@ -134,7 +134,7 @@
 <body>
     <section>
         <p class="header">DOG & CAT &nbsp Prediction</p>
-        <input type="file" name="imagr-file" id="fileUpload">
+        <input type="file" name="imagr-file" id="fileUpload" accept="image/x-png,image/gif,image/jpeg">
         <span> , &nbsp &nbsp or</span>
         <div class="getImg">
             <input type='text' placeholder="Image Link" id="imglink">
@@ -163,7 +163,6 @@
         async function loadModel() {
             model = undefined;
             model = await tf.loadLayersModel("./model/model.json");
-            console.log("model loaded")
         }
         loadModel();
 
@@ -172,7 +171,6 @@
         
         input.addEventListener('change' , function(){
             const file = this.files[0];
-            console.log(file)
             if(file){
                 const render = new FileReader();
                 render.addEventListener('load' , function(){
