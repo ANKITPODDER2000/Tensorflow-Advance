@@ -21,7 +21,7 @@
     <script>
         async function loadModel() {
             model = undefined;
-            model = await tf.loadLayersModel("./model/model.json");
+            model = await tf.loadLayersModel("./model_alph_digit/model.json");
             console.log("model loaded")
         }
         loadModel();

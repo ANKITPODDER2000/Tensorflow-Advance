@@ -3,6 +3,7 @@ var pos = {x:0, y:0};
 var rawImage;
 
 const alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('');
+
 const textSection = document.querySelector("#pred")
 
 function setPosition(e) {
@@ -31,11 +32,13 @@ function erase() {
     
 function save() {
 	var raw = tf.browser.fromPixels(rawImage,1);
-	var resized = tf.image.resizeBilinear(raw, [28,28]);
+	var resized = tf.image.resizeBilinear(raw, [28,28]).div(255.0);
     var tensor = resized.expandDims(0);
-    var prediction = model.predict(tensor);
-    var pIndex = tf.argMax(prediction, 1).dataSync();
-    textSection.innerHTML = `Predicted Alphabet : ${alphabet[pIndex]}`;
+	var prediction = model.predict(tensor);
+	var pIndex = tf.argMax(prediction, 1).dataSync();
+	console.log(pIndex);
+	textSection.innerHTML = `Predicted Alphabet : ${alphabet[pIndex]}`;
+	return prediction;
 }
     
 function init() {
