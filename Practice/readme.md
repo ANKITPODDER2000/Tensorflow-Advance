@@ -81,13 +81,10 @@
 
 
   ##### UI of the web APP
-  ***
-  <p align="center">
-    <img width="600px" src="https://user-images.githubusercontent.com/50513363/100707335-873bf600-33d0-11eb-85c4-4009c5ffbf93.png" />
-  </p>
-
-  ***
-
-  <p align="center">
-    <img width="600px" src="https://user-images.githubusercontent.com/50513363/100707529-d7b35380-33d0-11eb-88d9-6515598f7cf2.png" />
-  </p>
+  ---
+  * <p align="center">
+      <img width="600px" src="https://user-images.githubusercontent.com/50513363/100707335-873bf600-33d0-11eb-85c4-4009c5ffbf93.png" />
+    </p>
+  * <p align="center">
+     <img width="600px" src="https://user-images.githubusercontent.com/50513363/100707529-d7b35380-33d0-11eb-88d9-6515598f7cf2.png" />
+    </p>
