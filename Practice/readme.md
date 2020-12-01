@@ -22,7 +22,7 @@
   <p align="center">
     <img src="./Regression/animation_deg_6.gif"/>
   </p>
-* Cat & Dog Classification
+* [Cat & Dog Classification](https://ankitpodder2000.github.io/cat_dog_detect/)
 
   * *Prediction :*
   <p align="center">
@@ -35,7 +35,7 @@
   </p>
   
   
-* handwriting_detect
+* [handwriting_detect](https://ankitpodder2000.github.io/handwriting_detect/)
   
   ***
   
