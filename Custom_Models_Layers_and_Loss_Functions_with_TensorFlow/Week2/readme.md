@@ -4,7 +4,7 @@
 
     ```python
     import tensorflow.loss import mean_squared_error
-    model.compile(loss=mean_squared_error , optimizer = "sgd"
+    model.compile(loss=mean_squared_error , optimizer = "sgd")
     ```
     * True
     * ***False***
