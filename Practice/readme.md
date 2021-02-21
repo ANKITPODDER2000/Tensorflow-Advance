@@ -89,3 +89,57 @@
   <p align="center">
    <img width="600px" src="https://user-images.githubusercontent.com/50513363/100707529-d7b35380-33d0-11eb-88d9-6515598f7cf2.png" />
   </p>
+  
+  * ***Realtime Object detection***
+
+  --------------------
+  ##### Important Block of code
+  ```
+    model_link = "https://tfhub.dev/google/faster_rcnn/openimages_v4/inception_resnet_v2/1"
+    detector   = hub.load(model_link).signatures['default']
+  ```
+  ##### Block of code for creating video
+  ```
+    def real_time_detect(File_path , print_details = True):
+      for i in os.listdir("images/"):
+          os.remove("images/"+i)
+      cap = cv2.VideoCapture(File_path)
+      print("Process started ...")
+      count = 0
+      frame = None
+      while cap.isOpened():
+          ret, frame = cap.read()
+          if ret:
+              result = detector(tf.image.convert_image_dtype(frame , tf.float32)[tf.newaxis , ])
+              result = {k:v.numpy() for k , v in result.items()}
+              res = draw_boxes(
+                  frame ,
+                  result['detection_boxes'] ,
+                  result['detection_class_entities'] ,
+                  result['detection_scores'] ,
+                  max_boxes=20
+              )
+              im_name = "try"+str(count)+".png"
+              cv2.imwrite("images/"+im_name , res)
+              if count % 25 == 0:
+                  print("%d images are Created ..."%count)
+              count += 1
+          else:
+              break
+      cap.release()
+      print("Process done ......")
+      print("Creating Video .........")
+
+      img = []
+      for i in os.listdir("images/"):
+          img.append(cv2.imread("images/"+i))
+      print("Total no of images : ",len(img))
+      # Writes the the output image sequences in a video file
+
+
+      imageio.mimsave('./animation_last_25fps.mp4' , img , fps = 25)
+      print("Video creartion done ......")
+  ```
+  <p align="center">
+    <img src="Real Time Object Detection/test.gif" />
+  </p>
